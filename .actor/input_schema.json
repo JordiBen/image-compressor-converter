@@ -1,0 +1,160 @@
+{
+  "title": "Image compressor & converter input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "imageUrls": {
+      "title": "Image links",
+      "type": "array",
+      "editor": "requestListSources",
+      "sectionCaption": "Images",
+      "description": "Direct links to image files: JPEG, PNG, WebP, AVIF, HEIC/HEIF (iPhone), GIF (incl. animated), TIFF, BMP. Max 50 MB and 100 megapixels each, up to 5,000 per run. Google Drive (shared as 'Anyone with the link') and Dropbox share links work. Web pages are refused: use the image's own address.",
+      "prefill": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png"
+        }
+      ]
+    },
+    "uploadedFile": {
+      "title": "Or upload an image",
+      "type": "string",
+      "editor": "fileupload",
+      "description": "Upload one image from your computer instead of (or in addition to) links."
+    },
+    "outputFormat": {
+      "title": "Output format",
+      "type": "string",
+      "editor": "select",
+      "sectionCaption": "Format & quality",
+      "enum": [
+        "webp",
+        "avif",
+        "jpeg",
+        "png",
+        "keep"
+      ],
+      "enumTitles": [
+        "WebP (best for websites, ~25-35% smaller than JPEG)",
+        "AVIF (smallest files, modern browsers)",
+        "JPEG (works everywhere)",
+        "PNG (lossless, transparency)",
+        "Keep the original format (just compress)"
+      ],
+      "default": "webp",
+      "description": "Format of the converted images. 'Keep' compresses in the same format (HEIC, TIFF and BMP become JPEG, or PNG when they have transparency)."
+    },
+    "quality": {
+      "title": "Quality (1-100)",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "default": 80,
+      "description": "For JPEG, WebP and AVIF. 75-85 looks the same as the original for most photos; lower = smaller files. Ignored for PNG and lossless output."
+    },
+    "maxWidth": {
+      "title": "Max width (px)",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20000,
+      "default": 0,
+      "unit": "px",
+      "description": "Shrink images wider than this, keeping the aspect ratio. 0 = keep the original width. Images are never enlarged."
+    },
+    "maxHeight": {
+      "title": "Max height (px)",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20000,
+      "default": 0,
+      "unit": "px",
+      "description": "Shrink images taller than this, keeping the aspect ratio. 0 = keep the original height."
+    },
+    "targetMaxSizeKB": {
+      "title": "Target max file size (KB)",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000,
+      "default": 0,
+      "unit": "KB",
+      "description": "Make every file at most this big (e.g. 200 for a 200 KB upload limit). Lowers the quality step by step and, if needed, the resolution. 0 = off."
+    },
+    "resizeToReachTarget": {
+      "title": "Allow resizing to reach the target size",
+      "type": "boolean",
+      "default": true,
+      "description": "If lowering the quality is not enough, scale the image down until it fits the target size."
+    },
+    "stripMetadata": {
+      "title": "Remove metadata",
+      "type": "string",
+      "editor": "select",
+      "sectionCaption": "Metadata & privacy",
+      "enum": [
+        "all",
+        "gps",
+        "none"
+      ],
+      "enumTitles": [
+        "Remove all EXIF/XMP metadata incl. GPS location (smallest, private)",
+        "Remove only GPS location (keep camera info, copyright)",
+        "Keep all metadata"
+      ],
+      "default": "all",
+      "description": "Photos from phones often contain the exact GPS location where they were taken. By default all EXIF and XMP metadata is removed. The camera rotation is always applied to the pixels first, so images never end up sideways."
+    },
+    "keepColorProfile": {
+      "title": "Keep the color profile (ICC)",
+      "type": "boolean",
+      "default": true,
+      "description": "Keeps colors accurate for wide-gamut photos (e.g. iPhone Display P3). Turn off to save a few more KB."
+    },
+    "pngReduceColors": {
+      "title": "PNG: reduce to 256 colors (TinyPNG-style)",
+      "type": "boolean",
+      "default": false,
+      "sectionCaption": "Advanced",
+      "description": "Lossy PNG compression: usually 50-80% smaller PNGs with hardly visible change. Best for screenshots, logos and illustrations."
+    },
+    "lossless": {
+      "title": "Lossless WebP / AVIF",
+      "type": "boolean",
+      "default": false,
+      "description": "Pixel-perfect WebP/AVIF (bigger files). Good for screenshots and graphics."
+    },
+    "backgroundColor": {
+      "title": "Background for transparent images (JPEG)",
+      "type": "string",
+      "editor": "textfield",
+      "default": "#ffffff",
+      "description": "JPEG has no transparency: transparent areas are filled with this hex color."
+    },
+    "createZip": {
+      "title": "Also create a ZIP of all images",
+      "type": "boolean",
+      "default": false,
+      "description": "Adds images.zip (all converted images, max 300 MB) to the run's key-value store. Free."
+    },
+    "keepOriginalIfSmaller": {
+      "title": "Keep the original if re-encoding makes it bigger",
+      "type": "boolean",
+      "default": true,
+      "description": "When the format and size stay the same and the original is already smaller (and has no metadata to remove), the original file is returned as is."
+    },
+    "maxMegapixels": {
+      "title": "Max megapixels per image",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 150,
+      "default": 100,
+      "description": "Images above this are skipped (not charged). Above 100 MP give the run 2 GB of memory or more."
+    },
+    "avifSpeed": {
+      "title": "AVIF encoder speed (0-10)",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10,
+      "default": 7,
+      "description": "Higher = faster, slightly bigger AVIF files. 7 is a good balance."
+    }
+  }
+}

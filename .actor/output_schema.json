@@ -1,0 +1,24 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Image compressor & converter output",
+  "properties": {
+    "results": {
+      "type": "string",
+      "template": "{{links.apiDefaultDatasetUrl}}/items",
+      "title": "Results",
+      "description": "One item per image: original and new size, savings %, dimensions, removed metadata and a download link."
+    },
+    "files": {
+      "type": "string",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/keys",
+      "title": "Converted images",
+      "description": "The compressed/converted images (and images.zip if you asked for a ZIP) in the run's key-value store."
+    },
+    "summary": {
+      "type": "string",
+      "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT",
+      "title": "Summary",
+      "description": "Totals for the run: images processed, bytes saved, billed units and the ZIP link."
+    }
+  }
+}

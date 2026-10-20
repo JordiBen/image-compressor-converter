@@ -1,0 +1,96 @@
+{
+  "actorSpecification": 1,
+  "name": "image-compressor-converter",
+  "title": "Image Compressor & Converter: WebP, AVIF, JPEG, PNG, HEIC",
+  "description": "Bulk image compression and conversion: compress JPEG/PNG, convert to WebP or AVIF, HEIC to JPG, resize, hit a target file size and strip EXIF/GPS metadata. Download links per image plus an optional ZIP. $1 per 1,000 images, failed images free.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "views": {
+        "overview": {
+          "title": "Images",
+          "transformation": {
+            "fields": [
+              "url",
+              "fileName",
+              "inputFormat",
+              "outputFormat",
+              "originalBytes",
+              "outputBytes",
+              "savingsPercent",
+              "width",
+              "height",
+              "gpsRemoved",
+              "downloadUrl",
+              "billedUnits",
+              "note",
+              "error"
+            ]
+          },
+          "display": {
+            "component": "table",
+            "properties": {
+              "url": {
+                "label": "Image",
+                "format": "link"
+              },
+              "fileName": {
+                "label": "File"
+              },
+              "inputFormat": {
+                "label": "From"
+              },
+              "outputFormat": {
+                "label": "To"
+              },
+              "originalBytes": {
+                "label": "Original bytes",
+                "format": "number"
+              },
+              "outputBytes": {
+                "label": "New bytes",
+                "format": "number"
+              },
+              "savingsPercent": {
+                "label": "Saved %",
+                "format": "number"
+              },
+              "width": {
+                "label": "Width",
+                "format": "number"
+              },
+              "height": {
+                "label": "Height",
+                "format": "number"
+              },
+              "gpsRemoved": {
+                "label": "GPS removed",
+                "format": "boolean"
+              },
+              "downloadUrl": {
+                "label": "Download",
+                "format": "link"
+              },
+              "billedUnits": {
+                "label": "Billed",
+                "format": "number"
+              },
+              "note": {
+                "label": "Note"
+              },
+              "error": {
+                "label": "Error"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
